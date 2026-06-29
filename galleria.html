@@ -134,9 +134,9 @@
 
     .hero {
       padding: 150px 6vw 70px;
-      min-height: 58vh;
+      min-height: 45vh;
       display: grid;
-      grid-template-columns: 1fr 420px;
+      grid-template-columns: 1fr;
       gap: 46px;
       align-items: end;
     }
@@ -514,19 +514,12 @@
         <div class="kicker">Galleria completa</div>
         <h1>Tutte le <br><em>opere</em></h1>
       </div>
-
-      <p>
-        Qui puoi inserire tutta la lista dei quadri di Sebi The Painter.
-        Le immagini vengono richiamate dalla cartella <strong>images/</strong>,
-        per esempio <strong>images/quadro7.png</strong>, <strong>images/quadro8.png</strong> e così via.
-      </p>
     </section>
 
     <div class="toolbar">
       <div class="filters">
         <button class="filter active" data-filter="all">Tutte</button>
         <button class="filter" data-filter="available">Disponibili</button>
-        <button class="filter" data-filter="commission">Su richiesta</button>
         <button class="filter" data-filter="sold">Vendute</button>
       </div>
 
@@ -539,7 +532,7 @@
 
   <footer class="footer">
     <div>© 2026 Sebi The Painter. Complete Gallery.</div>
-    <div>Portfolio · Opere originali · Quadri su commissione</div>
+    <div>Portfolio · Opere originali · Vendita diretta</div>
   </footer>
 
   <div class="modal" id="modal">
@@ -583,32 +576,32 @@
       {
         titolo: "Opera n. 02",
         immagine: "images/quadro2.png",
-        categoria: "available",
-        stato: "Disponibile",
+        categoria: "sold",
+        stato: "Venduta",
         dimensioni: "60 x 80 cm",
         tecnica: "Tecnica mista",
-        prezzo: "Prezzo su richiesta",
-        descrizione: "Opera originale dipinta a mano."
+        prezzo: "Venduta",
+        descrizione: "Opera già venduta, utile come esempio di stile."
       },
       {
         titolo: "Opera n. 03",
         immagine: "images/quadro3.png",
-        categoria: "commission",
-        stato: "Su richiesta",
+        categoria: "available",
+        stato: "Disponibile",
         dimensioni: "80 x 120 cm",
         tecnica: "Olio su tela",
         prezzo: "Prezzo su richiesta",
-        descrizione: "Opera realizzabile o disponibile su richiesta."
+        descrizione: "Opera originale dipinta a mano."
       },
       {
         titolo: "Opera n. 04",
         immagine: "images/quadro4.png",
-        categoria: "sold",
-        stato: "Venduta",
+        categoria: "available",
+        stato: "Disponibile",
         dimensioni: "50 x 70 cm",
         tecnica: "Acrilico materico",
-        prezzo: "Venduta",
-        descrizione: "Opera già venduta, utile come esempio di stile."
+        prezzo: "Prezzo su richiesta",
+        descrizione: "Opera originale dipinta a mano."
       },
       {
         titolo: "Opera n. 05",
@@ -623,12 +616,12 @@
       {
         titolo: "Opera n. 06",
         immagine: "images/quadro6.png",
-        categoria: "commission",
-        stato: "Su commissione",
+        categoria: "available",
+        stato: "Disponibile",
         dimensioni: "Su misura",
         tecnica: "Opera personalizzata",
-        prezzo: "Da concordare",
-        descrizione: "Opera personalizzata realizzabile su richiesta."
+        prezzo: "Prezzo su richiesta",
+        descrizione: "Opera originale dipinta a mano."
       },
       {
         titolo: "Opera n. 07",
@@ -638,7 +631,7 @@
         dimensioni: "Da inserire",
         tecnica: "Da inserire",
         prezzo: "Prezzo su richiesta",
-        descrizione: "Aggiungi qui la descrizione dell'opera."
+        descrizione: "Opera originale dipinta a mano."
       },
       {
         titolo: "Opera n. 08",
@@ -648,7 +641,7 @@
         dimensioni: "Da inserire",
         tecnica: "Da inserire",
         prezzo: "Prezzo su richiesta",
-        descrizione: "Aggiungi qui la descrizione dell'opera."
+        descrizione: "Opera originale dipinta a mano."
       },
       {
         titolo: "Opera n. 09",
@@ -658,7 +651,7 @@
         dimensioni: "Da inserire",
         tecnica: "Da inserire",
         prezzo: "Prezzo su richiesta",
-        descrizione: "Aggiungi qui la descrizione dell'opera."
+        descrizione: "Opera originale dipinta a mano."
       },
       {
         titolo: "Opera n. 10",
@@ -668,27 +661,27 @@
         dimensioni: "Da inserire",
         tecnica: "Da inserire",
         prezzo: "Prezzo su richiesta",
-        descrizione: "Aggiungi qui la descrizione dell'opera."
+        descrizione: "Opera originale dipinta a mano."
       },
       {
         titolo: "Opera n. 11",
         immagine: "images/quadro11.png",
-        categoria: "commission",
-        stato: "Su richiesta",
+        categoria: "available",
+        stato: "Disponibile",
         dimensioni: "Da inserire",
         tecnica: "Da inserire",
         prezzo: "Prezzo su richiesta",
-        descrizione: "Aggiungi qui la descrizione dell'opera."
+        descrizione: "Opera originale dipinta a mano."
       },
       {
         titolo: "Opera n. 12",
         immagine: "images/quadro12.png",
-        categoria: "sold",
-        stato: "Venduta",
+        categoria: "available",
+        stato: "Disponibile",
         dimensioni: "Da inserire",
         tecnica: "Da inserire",
-        prezzo: "Venduta",
-        descrizione: "Aggiungi qui la descrizione dell'opera."
+        prezzo: "Prezzo su richiesta",
+        descrizione: "Opera originale dipinta a mano."
       }
     ];
 
