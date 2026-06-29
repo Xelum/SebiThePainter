@@ -3,28 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sebi The Painter | Online Art Gallery</title>
+  <title>Sebi The Painter | Online Gallery</title>
+  <meta name="description" content="Sebi The Painter - mostra online e portfolio di quadri originali." />
 
   <style>
     :root {
       --bg: #f4eee3;
       --paper: #fffaf1;
-      --ink: #16110d;
-      --muted: #7a7067;
-      --gold: #c79843;
-      --terracotta: #9b5338;
-      --olive: #59614a;
-      --dark: #17110c;
-      --line: rgba(22, 17, 13, 0.12);
-      --glass: rgba(255, 250, 241, 0.72);
-      --shadow: 0 30px 90px rgba(22, 17, 13, 0.18);
-      --radius: 34px;
+      --ink: #17110c;
+      --muted: #756b63;
+      --gold: #c99843;
+      --brown: #8f4d36;
+      --green: #59614a;
+      --line: rgba(23, 17, 12, 0.14);
+      --shadow: 0 30px 90px rgba(23, 17, 12, 0.18);
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     html {
@@ -33,12 +31,12 @@
 
     body {
       font-family: Georgia, "Times New Roman", serif;
-      color: var(--ink);
       background:
-        radial-gradient(circle at 15% 15%, rgba(199, 152, 67, 0.28), transparent 28%),
-        radial-gradient(circle at 88% 12%, rgba(155, 83, 56, 0.18), transparent 32%),
-        radial-gradient(circle at 55% 88%, rgba(89, 97, 74, 0.16), transparent 34%),
+        radial-gradient(circle at 15% 12%, rgba(201, 152, 67, 0.28), transparent 28%),
+        radial-gradient(circle at 90% 14%, rgba(143, 77, 54, 0.16), transparent 32%),
+        radial-gradient(circle at 55% 90%, rgba(89, 97, 74, 0.18), transparent 34%),
         var(--bg);
+      color: var(--ink);
       overflow-x: hidden;
     }
 
@@ -48,49 +46,15 @@
       inset: 0;
       pointer-events: none;
       z-index: -1;
-      opacity: 0.07;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.7'/%3E%3C/svg%3E");
+      opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E");
     }
 
-    a { color: inherit; }
-
-    .cursor-dot,
-    .cursor-ring {
-      position: fixed;
-      top: 0;
-      left: 0;
-      border-radius: 999px;
-      pointer-events: none;
-      transform: translate(-50%, -50%);
-      z-index: 999;
-      display: none;
+    a {
+      color: inherit;
     }
 
-    .cursor-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--gold);
-    }
-
-    .cursor-ring {
-      width: 42px;
-      height: 42px;
-      border: 1px solid rgba(22, 17, 13, 0.35);
-      transition: width 0.18s ease, height 0.18s ease, border-color 0.18s ease;
-    }
-
-    @media (pointer: fine) {
-      .cursor-dot,
-      .cursor-ring { display: block; }
-    }
-
-    .cursor-ring.is-hover {
-      width: 68px;
-      height: 68px;
-      border-color: rgba(199, 152, 67, 0.9);
-    }
-
-    .site-header {
+    .header {
       position: fixed;
       top: 0;
       left: 0;
@@ -99,32 +63,30 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 24px;
       padding: 22px 6vw;
-      background: rgba(244, 238, 227, 0.7);
+      background: rgba(244, 238, 227, 0.72);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--line);
     }
 
     .brand {
       text-decoration: none;
-      line-height: 1;
-      display: inline-flex;
+      display: flex;
       flex-direction: column;
-      gap: 3px;
+      line-height: 1;
+      gap: 4px;
     }
 
-    .brand-main {
+    .brand strong {
+      font-size: 22px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      font-size: 21px;
-      font-weight: 700;
     }
 
-    .brand-sub {
+    .brand span {
       font-family: Arial, sans-serif;
       font-size: 11px;
-      letter-spacing: 0.27em;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--gold);
     }
@@ -142,57 +104,102 @@
       letter-spacing: 0.16em;
       text-transform: uppercase;
       position: relative;
-      padding: 8px 0;
     }
 
     .nav a::after {
       content: "";
       position: absolute;
       left: 0;
-      bottom: 2px;
+      bottom: -7px;
       width: 0;
       height: 1px;
       background: var(--ink);
-      transition: width 0.3s ease;
+      transition: 0.3s ease;
     }
 
-    .nav a:hover::after { width: 100%; }
+    .nav a:hover::after {
+      width: 100%;
+    }
 
-    .menu-button {
+    .menu-btn {
       display: none;
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       border: 1px solid var(--line);
-      background: var(--glass);
-      border-radius: 999px;
-      align-items: center;
-      justify-content: center;
+      background: rgba(255, 250, 241, 0.62);
       cursor: pointer;
     }
 
-    .menu-button span,
-    .menu-button span::before,
-    .menu-button span::after {
+    .menu-btn span,
+    .menu-btn span::before,
+    .menu-btn span::after {
       display: block;
       width: 18px;
       height: 1px;
       background: var(--ink);
+      margin: auto;
       position: relative;
       transition: 0.25s ease;
     }
 
-    .menu-button span::before,
-    .menu-button span::after {
+    .menu-btn span::before,
+    .menu-btn span::after {
       content: "";
       position: absolute;
       left: 0;
     }
 
-    .menu-button span::before { top: -6px; }
-    .menu-button span::after { top: 6px; }
-    .menu-button.is-open span { background: transparent; }
-    .menu-button.is-open span::before { top: 0; transform: rotate(45deg); }
-    .menu-button.is-open span::after { top: 0; transform: rotate(-45deg); }
+    .menu-btn span::before {
+      top: -6px;
+    }
+
+    .menu-btn span::after {
+      top: 6px;
+    }
+
+    .menu-btn.open span {
+      background: transparent;
+    }
+
+    .menu-btn.open span::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+
+    .menu-btn.open span::after {
+      top: 0;
+      transform: rotate(-45deg);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 78px;
+      left: 5vw;
+      right: 5vw;
+      z-index: 45;
+      padding: 20px;
+      border-radius: 26px;
+      background: rgba(255, 250, 241, 0.94);
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow);
+    }
+
+    .mobile-menu.open {
+      display: block;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
 
     .btn {
       display: inline-flex;
@@ -205,62 +212,61 @@
       text-decoration: none;
       font-family: Arial, sans-serif;
       font-size: 12px;
-      letter-spacing: 0.14em;
       text-transform: uppercase;
-      transition: 0.3s ease;
+      letter-spacing: 0.14em;
       cursor: pointer;
+      transition: 0.3s ease;
       white-space: nowrap;
     }
 
     .btn-dark {
-      background: var(--dark);
+      background: var(--ink);
       color: var(--paper);
-      box-shadow: 0 18px 45px rgba(22, 17, 13, 0.18);
+      box-shadow: 0 16px 44px rgba(23, 17, 12, 0.18);
     }
 
     .btn-dark:hover {
       transform: translateY(-3px);
-      background: var(--terracotta);
+      background: var(--brown);
     }
 
     .btn-light {
-      border-color: rgba(22, 17, 13, 0.28);
+      border-color: rgba(23, 17, 12, 0.26);
+      background: rgba(255, 250, 241, 0.48);
       color: var(--ink);
-      background: rgba(255, 250, 241, 0.4);
     }
 
     .btn-light:hover {
-      background: var(--paper);
       transform: translateY(-3px);
+      background: var(--paper);
     }
 
     .hero {
       min-height: 100vh;
-      padding: 150px 6vw 80px;
+      padding: 150px 6vw 85px;
       display: grid;
       grid-template-columns: 1.02fr 0.98fr;
       align-items: center;
       gap: 56px;
-      position: relative;
     }
 
-    .hero-kicker {
+    .kicker {
       display: inline-flex;
-      align-items: center;
       gap: 12px;
+      align-items: center;
       margin-bottom: 24px;
-      color: var(--terracotta);
       font-family: Arial, sans-serif;
       font-size: 12px;
       letter-spacing: 0.22em;
       text-transform: uppercase;
+      color: var(--brown);
     }
 
-    .hero-kicker::before {
+    .kicker::before {
       content: "";
       width: 46px;
       height: 1px;
-      background: var(--terracotta);
+      background: var(--brown);
     }
 
     .hero h1 {
@@ -269,66 +275,59 @@
       line-height: 0.86;
       letter-spacing: -0.065em;
       font-weight: 400;
-      margin-bottom: 28px;
+      margin-bottom: 30px;
     }
 
     .hero h1 em {
       color: var(--gold);
       font-style: italic;
-      letter-spacing: -0.055em;
     }
 
-    .hero-text {
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-text p {
-      max-width: 560px;
+    .hero p {
+      max-width: 565px;
+      margin-bottom: 36px;
       font-family: Arial, sans-serif;
       color: var(--muted);
       font-size: 18px;
       line-height: 1.85;
-      margin-bottom: 36px;
     }
 
     .hero-actions {
       display: flex;
-      align-items: center;
       flex-wrap: wrap;
       gap: 14px;
     }
 
-    .hero-stage {
+    .hero-art {
+      position: relative;
       height: min(73vh, 720px);
       min-height: 560px;
-      position: relative;
-      perspective: 1100px;
+      perspective: 1000px;
     }
 
     .orb {
       position: absolute;
       border-radius: 999px;
       filter: blur(2px);
-      opacity: 0.75;
       z-index: 0;
+      opacity: 0.75;
     }
 
-    .orb-1 {
+    .orb.one {
       width: 230px;
       height: 230px;
-      right: 4%;
       top: 0;
-      background: rgba(199, 152, 67, 0.35);
+      right: 4%;
+      background: rgba(201, 152, 67, 0.36);
       animation: pulse 7s ease-in-out infinite;
     }
 
-    .orb-2 {
+    .orb.two {
       width: 170px;
       height: 170px;
       left: 0;
       bottom: 12%;
-      background: rgba(155, 83, 56, 0.22);
+      background: rgba(143, 77, 54, 0.2);
       animation: pulse 8s ease-in-out infinite reverse;
     }
 
@@ -344,49 +343,41 @@
       box-shadow: var(--shadow);
       transform: rotate(2deg);
       z-index: 2;
-      transition: transform 0.2s ease;
       animation: floatMain 7s ease-in-out infinite;
+      transition: transform 0.2s ease;
     }
 
-    .canvas-art {
+    .main-painting {
+      position: relative;
       width: 100%;
       height: 100%;
       border-radius: 26px;
       overflow: hidden;
-      position: relative;
-      background:
-        linear-gradient(135deg, rgba(20, 15, 10, 0.1), rgba(255, 255, 255, 0.02)),
-        radial-gradient(circle at 18% 25%, #f6d271 0 10%, transparent 22%),
-        radial-gradient(circle at 78% 22%, #3f4b42 0 12%, transparent 26%),
-        radial-gradient(circle at 48% 58%, #ad553c 0 12%, transparent 30%),
-        linear-gradient(135deg, #f0c46a, #85533c 48%, #1f2722);
+      background-image: url("images/quadro1.png");
       background-size: cover;
       background-position: center;
     }
 
-    .canvas-art::before {
+    .main-painting::after {
       content: "";
       position: absolute;
-      inset: -20%;
+      inset: 0;
       background:
-        linear-gradient(115deg, transparent 0 35%, rgba(255,255,255,0.33) 45%, transparent 56%),
-        repeating-linear-gradient(78deg, rgba(255,255,255,0.08) 0 2px, transparent 2px 9px);
-      mix-blend-mode: soft-light;
-      animation: lightSweep 8s ease-in-out infinite;
+        linear-gradient(to top, rgba(23, 17, 12, 0.26), transparent 45%),
+        linear-gradient(115deg, transparent 0 35%, rgba(255,255,255,0.20) 46%, transparent 56%);
+      pointer-events: none;
     }
 
     .art-label {
       position: absolute;
       left: 24px;
       bottom: 24px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+      z-index: 3;
       padding: 12px 16px;
       border-radius: 999px;
-      color: var(--paper);
-      background: rgba(20, 15, 10, 0.62);
+      background: rgba(23, 17, 12, 0.64);
       backdrop-filter: blur(12px);
+      color: var(--paper);
       font-family: Arial, sans-serif;
       font-size: 12px;
       letter-spacing: 0.14em;
@@ -402,47 +393,47 @@
       padding: 12px;
       border-radius: 28px;
       background: rgba(255, 250, 241, 0.86);
-      box-shadow: 0 22px 70px rgba(22, 17, 13, 0.15);
+      box-shadow: 0 22px 70px rgba(23, 17, 12, 0.15);
       transform: rotate(-9deg);
       z-index: 3;
       animation: floatSmall 6s ease-in-out infinite;
     }
 
-    .small-art {
+    .small-painting {
       width: 100%;
       height: 100%;
       border-radius: 20px;
-      background:
-        radial-gradient(circle at 26% 30%, #e9c86d 0 12%, transparent 28%),
-        radial-gradient(circle at 72% 66%, #222a2a 0 18%, transparent 38%),
-        linear-gradient(145deg, #efe0c5, #a24f35 52%, #39433a);
+      background-image: url("images/quadro2.png");
+      background-size: cover;
+      background-position: center;
     }
 
     .floating-note {
       position: absolute;
       left: 6%;
       bottom: 6%;
+      z-index: 4;
       width: 300px;
       padding: 26px;
       border-radius: 30px;
-      background: var(--glass);
+      background: rgba(255, 250, 241, 0.72);
       backdrop-filter: blur(22px);
       border: 1px solid rgba(255, 250, 241, 0.72);
-      box-shadow: 0 24px 70px rgba(22, 17, 13, 0.13);
-      z-index: 4;
+      box-shadow: 0 24px 70px rgba(23, 17, 12, 0.13);
       font-family: Arial, sans-serif;
       color: var(--muted);
       line-height: 1.65;
+      transition: transform 0.2s ease;
     }
 
     .floating-note strong {
       display: block;
+      margin-bottom: 10px;
       font-family: Georgia, "Times New Roman", serif;
       font-size: 42px;
       font-weight: 400;
-      color: var(--terracotta);
+      color: var(--brown);
       line-height: 1;
-      margin-bottom: 10px;
     }
 
     .vertical-text {
@@ -450,11 +441,11 @@
       right: -26px;
       bottom: 9%;
       writing-mode: vertical-rl;
-      text-transform: uppercase;
       font-family: Arial, sans-serif;
       font-size: 11px;
       letter-spacing: 0.25em;
-      color: rgba(22, 17, 13, 0.42);
+      text-transform: uppercase;
+      color: rgba(23, 17, 12, 0.42);
     }
 
     .marquee {
@@ -472,9 +463,9 @@
       animation: marquee 27s linear infinite;
       font-family: Arial, sans-serif;
       font-size: 14px;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.20em;
       text-transform: uppercase;
-      color: var(--terracotta);
+      color: var(--brown);
     }
 
     .marquee-track span {
@@ -482,9 +473,11 @@
       color: var(--gold);
     }
 
-    .section { padding: 105px 6vw; }
+    .section {
+      padding: 105px 6vw;
+    }
 
-    .section-heading {
+    .section-head {
       display: grid;
       grid-template-columns: 1fr 420px;
       gap: 46px;
@@ -492,14 +485,14 @@
       margin-bottom: 52px;
     }
 
-    .section-heading h2 {
+    .section-head h2 {
       font-size: clamp(40px, 5vw, 82px);
       line-height: 0.98;
       letter-spacing: -0.045em;
       font-weight: 400;
     }
 
-    .section-heading p {
+    .section-head p {
       font-family: Arial, sans-serif;
       color: var(--muted);
       line-height: 1.85;
@@ -517,13 +510,13 @@
 
     .filters {
       display: flex;
-      gap: 10px;
       flex-wrap: wrap;
+      gap: 10px;
     }
 
     .filter {
-      border: 1px solid rgba(22, 17, 13, 0.2);
-      background: rgba(255, 250, 241, 0.44);
+      border: 1px solid rgba(23, 17, 12, 0.2);
+      background: rgba(255, 250, 241, 0.48);
       color: var(--ink);
       padding: 11px 16px;
       border-radius: 999px;
@@ -535,10 +528,10 @@
     }
 
     .filter:hover,
-    .filter.is-active {
+    .filter.active {
       color: var(--paper);
-      background: var(--dark);
-      border-color: var(--dark);
+      background: var(--ink);
+      border-color: var(--ink);
     }
 
     .hint {
@@ -554,88 +547,57 @@
 
     .art-card {
       min-height: 520px;
-      border-radius: var(--radius);
+      border-radius: 34px;
       overflow: hidden;
       background: var(--paper);
-      box-shadow: 0 24px 70px rgba(22, 17, 13, 0.12);
-      position: relative;
+      box-shadow: 0 24px 70px rgba(23, 17, 12, 0.12);
+      cursor: pointer;
       transform: translateY(42px);
       opacity: 0;
       transition: opacity 0.75s ease, transform 0.75s ease;
-      cursor: pointer;
     }
 
-    .art-card.is-visible {
+    .art-card.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .art-card.is-hidden { display: none; }
+    .art-card.hidden {
+      display: none;
+    }
 
-    .art-preview {
+    .preview {
       height: 76%;
       min-height: 390px;
       background-size: cover;
       background-position: center;
-      transition: transform 0.7s ease;
       position: relative;
-      overflow: hidden;
+      transition: transform 0.7s ease;
     }
 
-    .art-preview::after {
+    .preview::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(22, 17, 13, 0.22), transparent 45%);
+      background: linear-gradient(to top, rgba(23, 17, 12, 0.25), transparent 48%);
       opacity: 0;
-      transition: opacity 0.35s ease;
+      transition: 0.35s ease;
     }
 
-    .art-card:hover .art-preview { transform: scale(1.055); }
-    .art-card:hover .art-preview::after { opacity: 1; }
-
-    .art-preview.art-1 {
-      background:
-        radial-gradient(circle at 24% 24%, #f7d573 0 12%, transparent 24%),
-        radial-gradient(circle at 74% 30%, #2c3835 0 13%, transparent 28%),
-        radial-gradient(circle at 54% 62%, #a94e36 0 18%, transparent 36%),
-        linear-gradient(135deg, #f0d09a, #b46b42 52%, #1f2825);
+    .art-card:hover .preview {
+      transform: scale(1.055);
     }
 
-    .art-preview.art-2 {
-      background:
-        radial-gradient(circle at 70% 18%, #e9c56a 0 13%, transparent 28%),
-        radial-gradient(circle at 28% 72%, #533529 0 18%, transparent 34%),
-        linear-gradient(145deg, #efe3cb, #9d5039 48%, #2b3029);
+    .art-card:hover .preview::after {
+      opacity: 1;
     }
 
-    .art-preview.art-3 {
-      background:
-        radial-gradient(circle at 38% 32%, #c59943 0 14%, transparent 30%),
-        radial-gradient(circle at 75% 70%, #efe4cc 0 12%, transparent 25%),
-        linear-gradient(135deg, #2c332d, #8f4735 52%, #17110c);
-    }
-
-    .art-preview.art-4 {
-      background:
-        radial-gradient(circle at 66% 22%, #f3d47d 0 11%, transparent 22%),
-        repeating-linear-gradient(25deg, rgba(255,255,255,0.18) 0 4px, transparent 4px 16px),
-        linear-gradient(135deg, #72513b, #c88f45 45%, #efe2c5);
-    }
-
-    .art-preview.art-5 {
-      background:
-        radial-gradient(circle at 22% 70%, #d19a47 0 18%, transparent 34%),
-        radial-gradient(circle at 72% 22%, #202a26 0 18%, transparent 35%),
-        linear-gradient(145deg, #eee0c3, #8f503a 45%, #59614a);
-    }
-
-    .art-preview.art-6 {
-      background:
-        radial-gradient(circle at 25% 25%, #f2ce6b 0 10%, transparent 24%),
-        radial-gradient(circle at 68% 60%, #8f4935 0 17%, transparent 38%),
-        linear-gradient(135deg, #1c211f, #55614f 45%, #efe1c7);
-    }
+    .art1 { background-image: url("images/quadro1.png"); }
+    .art2 { background-image: url("images/quadro2.png"); }
+    .art3 { background-image: url("images/quadro3.png"); }
+    .art4 { background-image: url("images/quadro4.png"); }
+    .art5 { background-image: url("images/quadro5.png"); }
+    .art6 { background-image: url("images/quadro6.png"); }
 
     .art-info {
       height: 24%;
@@ -665,15 +627,17 @@
       display: inline-flex;
       padding: 9px 12px;
       border-radius: 999px;
-      background: rgba(199, 152, 67, 0.16);
-      color: var(--terracotta);
+      background: rgba(201, 152, 67, 0.16);
+      color: var(--brown);
       font-family: Arial, sans-serif;
       font-size: 10px;
       letter-spacing: 0.13em;
       text-transform: uppercase;
     }
 
-    .about-wrap { padding: 0 6vw 110px; }
+    .about-wrap {
+      padding: 0 6vw 110px;
+    }
 
     .about {
       position: relative;
@@ -686,9 +650,9 @@
       border-radius: 48px;
       color: var(--paper);
       background:
-        radial-gradient(circle at 88% 10%, rgba(199, 152, 67, 0.2), transparent 28%),
+        radial-gradient(circle at 88% 10%, rgba(201, 152, 67, 0.20), transparent 28%),
         linear-gradient(135deg, #17110c, #2a1c15);
-      box-shadow: 0 34px 100px rgba(22, 17, 13, 0.22);
+      box-shadow: 0 34px 100px rgba(23, 17, 12, 0.22);
     }
 
     .about::before {
@@ -699,16 +663,16 @@
       right: -160px;
       bottom: -180px;
       border-radius: 50%;
-      background: rgba(155, 83, 56, 0.2);
+      background: rgba(143, 77, 54, 0.20);
     }
 
     .about-kicker {
+      margin-bottom: 22px;
       font-family: Arial, sans-serif;
       color: var(--gold);
       text-transform: uppercase;
       letter-spacing: 0.22em;
       font-size: 12px;
-      margin-bottom: 22px;
     }
 
     .about h2 {
@@ -727,7 +691,7 @@
       line-height: 1.9;
     }
 
-    .about-stats {
+    .stats {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
@@ -743,11 +707,11 @@
 
     .stat strong {
       display: block;
+      margin-bottom: 5px;
       color: var(--paper);
       font-family: Georgia, "Times New Roman", serif;
       font-size: 26px;
       font-weight: 400;
-      margin-bottom: 5px;
     }
 
     .stat span {
@@ -768,14 +732,14 @@
       min-height: 250px;
       border-radius: 32px;
       background: rgba(255, 250, 241, 0.48);
-      border: 1px solid rgba(22, 17, 13, 0.08);
-      box-shadow: 0 18px 55px rgba(22, 17, 13, 0.08);
+      border: 1px solid rgba(23, 17, 12, 0.08);
+      box-shadow: 0 18px 55px rgba(23, 17, 12, 0.08);
       transform: translateY(34px);
       opacity: 0;
       transition: 0.75s ease;
     }
 
-    .process-card.is-visible {
+    .process-card.visible {
       opacity: 1;
       transform: translateY(0);
     }
@@ -787,16 +751,16 @@
       align-items: center;
       justify-content: center;
       border-radius: 50%;
-      background: var(--dark);
+      background: var(--ink);
       color: var(--paper);
       margin-bottom: 24px;
       font-family: Arial, sans-serif;
     }
 
     .process-card h3 {
+      margin-bottom: 14px;
       font-size: 27px;
       font-weight: 400;
-      margin-bottom: 14px;
     }
 
     .process-card p {
@@ -809,17 +773,19 @@
     .contact {
       padding: 115px 6vw 135px;
       text-align: center;
-      position: relative;
     }
 
-    .contact-inner { max-width: 860px; margin: 0 auto; }
+    .contact-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
 
     .contact h2 {
+      margin-bottom: 26px;
       font-size: clamp(46px, 7vw, 104px);
       line-height: 0.94;
       letter-spacing: -0.055em;
       font-weight: 400;
-      margin-bottom: 26px;
     }
 
     .contact p {
@@ -838,7 +804,7 @@
       gap: 14px;
     }
 
-    .site-footer {
+    .footer {
       padding: 34px 6vw;
       display: flex;
       justify-content: space-between;
@@ -861,7 +827,9 @@
       backdrop-filter: blur(12px);
     }
 
-    .modal.is-open { display: flex; }
+    .modal.open {
+      display: flex;
+    }
 
     .modal-card {
       width: min(980px, 100%);
@@ -876,7 +844,6 @@
 
     .modal-art {
       min-height: 560px;
-      background: #ddd;
       border-radius: 34px 0 0 34px;
       background-size: cover;
       background-position: center;
@@ -908,7 +875,6 @@
       gap: 10px;
       margin: 8px 0 10px;
       font-family: Arial, sans-serif;
-      color: var(--ink);
     }
 
     .modal-meta div {
@@ -930,38 +896,13 @@
       line-height: 1;
     }
 
-    .mobile-panel {
-      position: fixed;
-      inset: 72px 16px auto 16px;
-      z-index: 49;
-      display: none;
-      padding: 22px;
-      border-radius: 28px;
-      background: rgba(255, 250, 241, 0.92);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 20px 70px rgba(22, 17, 13, 0.16);
-    }
-
-    .mobile-panel.is-open { display: block; }
-
-    .mobile-panel a {
-      display: block;
-      padding: 14px 0;
-      text-decoration: none;
-      font-family: Arial, sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      border-bottom: 1px solid var(--line);
-      font-size: 12px;
-    }
-
     .reveal {
       opacity: 0;
       transform: translateY(34px);
       transition: opacity 0.75s ease, transform 0.75s ease;
     }
 
-    .reveal.is-visible {
+    .reveal.visible {
       opacity: 1;
       transform: translateY(0);
     }
@@ -981,88 +922,201 @@
       50% { transform: scale(1.11); }
     }
 
-    @keyframes lightSweep {
-      0%, 100% { transform: translateX(-15%) rotate(8deg); opacity: 0.55; }
-      50% { transform: translateX(20%) rotate(8deg); opacity: 0.95; }
-    }
-
     @keyframes marquee {
       from { transform: translateX(0); }
       to { transform: translateX(-50%); }
     }
 
     @media (max-width: 1080px) {
-      .hero { grid-template-columns: 1fr; padding-top: 135px; }
-      .hero-stage { height: 610px; min-height: 500px; }
-      .section-heading { grid-template-columns: 1fr; }
-      .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .about { grid-template-columns: 1fr; padding: 58px; }
-      .process { grid-template-columns: 1fr; }
+      .hero {
+        grid-template-columns: 1fr;
+        padding-top: 135px;
+      }
+
+      .hero-art {
+        height: 610px;
+        min-height: 500px;
+      }
+
+      .section-head {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .about {
+        grid-template-columns: 1fr;
+        padding: 58px;
+      }
+
+      .process {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 780px) {
-      .site-header { padding: 18px 5vw; }
-      .nav { display: none; }
-      .menu-button { display: inline-flex; }
-      .hero { padding: 125px 5vw 64px; gap: 34px; }
-      .hero h1 { letter-spacing: -0.055em; }
-      .hero-stage { height: 520px; min-height: 520px; }
-      .main-frame { width: 84%; height: 70%; right: 0; top: 7%; }
-      .small-frame { width: 160px; height: 205px; }
-      .floating-note { width: 255px; left: 2%; bottom: 2%; }
-      .section { padding: 78px 5vw; }
-      .gallery-tools { align-items: flex-start; flex-direction: column; }
-      .gallery { grid-template-columns: 1fr; }
-      .art-card { min-height: 470px; }
-      .art-preview { min-height: 345px; }
-      .about-wrap { padding: 0 5vw 78px; }
-      .about { padding: 42px 30px; border-radius: 34px; }
-      .contact { padding: 84px 5vw 100px; }
-      .contact-actions { flex-direction: column; }
-      .btn { width: 100%; }
-      .site-footer { flex-direction: column; padding: 30px 5vw; }
-      .modal-card { grid-template-columns: 1fr; }
-      .modal-art { min-height: 360px; border-radius: 34px 34px 0 0; }
-      .modal-content { padding: 30px; }
+      .header {
+        padding: 18px 5vw;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .hero {
+        padding: 125px 5vw 64px;
+        gap: 34px;
+      }
+
+      .hero-art {
+        height: 520px;
+        min-height: 520px;
+      }
+
+      .main-frame {
+        width: 84%;
+        height: 70%;
+        right: 0;
+        top: 7%;
+      }
+
+      .small-frame {
+        width: 160px;
+        height: 205px;
+      }
+
+      .floating-note {
+        width: 255px;
+        left: 2%;
+        bottom: 2%;
+      }
+
+      .vertical-text {
+        display: none;
+      }
+
+      .section {
+        padding: 78px 5vw;
+      }
+
+      .gallery-tools {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .art-card {
+        min-height: 470px;
+      }
+
+      .preview {
+        min-height: 345px;
+      }
+
+      .about-wrap {
+        padding: 0 5vw 78px;
+      }
+
+      .about {
+        padding: 42px 30px;
+        border-radius: 34px;
+      }
+
+      .contact {
+        padding: 84px 5vw 100px;
+      }
+
+      .contact-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .footer {
+        flex-direction: column;
+        padding: 30px 5vw;
+      }
+
+      .modal-card {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-art {
+        min-height: 360px;
+        border-radius: 34px 34px 0 0;
+      }
+
+      .modal-content {
+        padding: 30px;
+      }
     }
 
     @media (max-width: 480px) {
-      .brand-main { font-size: 18px; }
-      .brand-sub { font-size: 9px; }
-      .hero-text p, .contact p { font-size: 16px; }
-      .hero-stage { height: 480px; min-height: 480px; }
-      .small-frame { display: none; }
-      .floating-note { width: 235px; padding: 22px; }
-      .floating-note strong { font-size: 34px; }
-      .vertical-text { display: none; }
-      .modal-close { top: 12px; right: 12px; }
+      .brand strong {
+        font-size: 18px;
+      }
+
+      .brand span {
+        font-size: 9px;
+      }
+
+      .hero p,
+      .contact p {
+        font-size: 16px;
+      }
+
+      .hero-art {
+        height: 480px;
+        min-height: 480px;
+      }
+
+      .small-frame {
+        display: none;
+      }
+
+      .floating-note {
+        width: 235px;
+        padding: 22px;
+      }
+
+      .floating-note strong {
+        font-size: 34px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div class="cursor-dot"></div>
-  <div class="cursor-ring"></div>
-
-  <header class="site-header">
-    <a class="brand magnetic" href="#home" aria-label="Sebi The Painter">
-      <span class="brand-main">Sebi The Painter</span>
-      <span class="brand-sub">Online Gallery</span>
+  <header class="header">
+    <a class="brand" href="#home">
+      <strong>Sebi The Painter</strong>
+      <span>Online Gallery</span>
     </a>
 
-    <nav class="nav" aria-label="Navigazione principale">
-      <a class="magnetic" href="#gallery">Galleria</a>
-      <a class="magnetic" href="#about">L'artista</a>
-      <a class="magnetic" href="#process">Commissioni</a>
-      <a class="btn btn-dark magnetic" href="#contact">Contatti</a>
+    <nav class="nav">
+      <a href="#gallery">Galleria</a>
+      <a href="#about">L'artista</a>
+      <a href="#process">Commissioni</a>
+      <a class="btn btn-dark" href="#contact">Contatti</a>
     </nav>
 
-    <button class="menu-button" aria-label="Apri menu" aria-expanded="false">
+    <button class="menu-btn" id="menuBtn" aria-label="Apri menu">
       <span></span>
     </button>
   </header>
 
-  <div class="mobile-panel" id="mobilePanel">
+  <div class="mobile-menu" id="mobileMenu">
     <a href="#gallery">Galleria</a>
     <a href="#about">L'artista</a>
     <a href="#process">Commissioni</a>
@@ -1071,8 +1125,8 @@
 
   <main id="home">
     <section class="hero">
-      <div class="hero-text">
-        <div class="hero-kicker reveal">Mostra online di quadri originali</div>
+      <div>
+        <div class="kicker reveal">Mostra online di quadri originali</div>
 
         <h1 class="reveal">
           Arte che <br>
@@ -1087,21 +1141,21 @@
         </p>
 
         <div class="hero-actions reveal">
-          <a class="btn btn-dark magnetic" href="#gallery">Scopri la galleria</a>
-          <a class="btn btn-light magnetic" href="#contact">Richiedi informazioni</a>
+          <a class="btn btn-dark" href="#gallery">Scopri la galleria</a>
+          <a class="btn btn-light" href="#contact">Richiedi informazioni</a>
         </div>
       </div>
 
-      <div class="hero-stage" id="heroStage">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
+      <div class="hero-art" id="heroArt">
+        <div class="orb one"></div>
+        <div class="orb two"></div>
 
         <div class="small-frame">
-          <div class="small-art"></div>
+          <div class="small-painting"></div>
         </div>
 
         <div class="main-frame" id="mainFrame">
-          <div class="canvas-art">
+          <div class="main-painting">
             <div class="art-label">Opera in evidenza</div>
           </div>
         </div>
@@ -1115,7 +1169,7 @@
       </div>
     </section>
 
-    <div class="marquee" aria-hidden="true">
+    <div class="marquee">
       <div class="marquee-track">
         Original Paintings <span>•</span> Online Gallery <span>•</span> Handmade Art <span>•</span> Unique Spaces <span>•</span>
         Original Paintings <span>•</span> Online Gallery <span>•</span> Handmade Art <span>•</span> Unique Spaces <span>•</span>
@@ -1123,53 +1177,90 @@
     </div>
 
     <section class="section" id="gallery">
-      <div class="section-heading reveal">
+      <div class="section-head reveal">
         <h2>Opere selezionate dalla galleria</h2>
         <p>
-          Una prima selezione di quadri. Puoi sostituire questi esempi con le foto reali
-          delle opere di tuo padre, aggiungendo titolo, dimensioni, tecnica e disponibilità.
+          Una prima selezione di quadri disponibili. Ogni opera può essere accompagnata
+          da titolo, dimensioni, tecnica, descrizione e disponibilità.
         </p>
       </div>
 
       <div class="gallery-tools reveal">
-        <div class="filters" aria-label="Filtri galleria">
-          <button class="filter is-active" data-filter="all">Tutte</button>
+        <div class="filters">
+          <button class="filter active" data-filter="all">Tutte</button>
           <button class="filter" data-filter="available">Disponibili</button>
           <button class="filter" data-filter="commission">Su richiesta</button>
           <button class="filter" data-filter="sold">Vendute</button>
         </div>
+
         <div class="hint">Clicca su un'opera per aprire la scheda.</div>
       </div>
 
       <div class="gallery">
-        <article class="art-card" data-category="available" data-title="Luce d'Autunno" data-size="70 x 100 cm" data-technique="Acrilico su tela" data-status="Disponibile" data-style="art-1">
-          <div class="art-preview art-1"></div>
-          <div class="art-info"><div><h3>Luce d'Autunno</h3><p>Acrilico su tela · 70 x 100 cm</p></div><span class="status">Disponibile</span></div>
+        <article class="art-card" data-category="available" data-title="Opera n. 01" data-size="70 x 100 cm" data-technique="Acrilico su tela" data-status="Disponibile">
+          <div class="preview art1"></div>
+          <div class="art-info">
+            <div>
+              <h3>Opera n. 01</h3>
+              <p>Acrilico su tela · 70 x 100 cm</p>
+            </div>
+            <span class="status">Disponibile</span>
+          </div>
         </article>
 
-        <article class="art-card" data-category="commission" data-title="Memorie Calde" data-size="60 x 80 cm" data-technique="Tecnica mista" data-status="Su richiesta" data-style="art-2">
-          <div class="art-preview art-2"></div>
-          <div class="art-info"><div><h3>Memorie Calde</h3><p>Tecnica mista · 60 x 80 cm</p></div><span class="status">Su richiesta</span></div>
+        <article class="art-card" data-category="available" data-title="Opera n. 02" data-size="60 x 80 cm" data-technique="Tecnica mista" data-status="Disponibile">
+          <div class="preview art2"></div>
+          <div class="art-info">
+            <div>
+              <h3>Opera n. 02</h3>
+              <p>Tecnica mista · 60 x 80 cm</p>
+            </div>
+            <span class="status">Disponibile</span>
+          </div>
         </article>
 
-        <article class="art-card" data-category="available" data-title="Silenzi Verdi" data-size="80 x 120 cm" data-technique="Olio su tela" data-status="Disponibile" data-style="art-3">
-          <div class="art-preview art-3"></div>
-          <div class="art-info"><div><h3>Silenzi Verdi</h3><p>Olio su tela · 80 x 120 cm</p></div><span class="status">Disponibile</span></div>
+        <article class="art-card" data-category="commission" data-title="Opera n. 03" data-size="80 x 120 cm" data-technique="Olio su tela" data-status="Su richiesta">
+          <div class="preview art3"></div>
+          <div class="art-info">
+            <div>
+              <h3>Opera n. 03</h3>
+              <p>Olio su tela · 80 x 120 cm</p>
+            </div>
+            <span class="status">Su richiesta</span>
+          </div>
         </article>
 
-        <article class="art-card" data-category="sold" data-title="Materia e Sole" data-size="50 x 70 cm" data-technique="Acrilico materico" data-status="Venduta" data-style="art-4">
-          <div class="art-preview art-4"></div>
-          <div class="art-info"><div><h3>Materia e Sole</h3><p>Acrilico materico · 50 x 70 cm</p></div><span class="status">Venduta</span></div>
+        <article class="art-card" data-category="sold" data-title="Opera n. 04" data-size="50 x 70 cm" data-technique="Acrilico materico" data-status="Venduta">
+          <div class="preview art4"></div>
+          <div class="art-info">
+            <div>
+              <h3>Opera n. 04</h3>
+              <p>Acrilico materico · 50 x 70 cm</p>
+            </div>
+            <span class="status">Venduta</span>
+          </div>
         </article>
 
-        <article class="art-card" data-category="available" data-title="Orizzonte Intimo" data-size="90 x 90 cm" data-technique="Acrilico su tela" data-status="Disponibile" data-style="art-5">
-          <div class="art-preview art-5"></div>
-          <div class="art-info"><div><h3>Orizzonte Intimo</h3><p>Acrilico su tela · 90 x 90 cm</p></div><span class="status">Disponibile</span></div>
+        <article class="art-card" data-category="available" data-title="Opera n. 05" data-size="90 x 90 cm" data-technique="Acrilico su tela" data-status="Disponibile">
+          <div class="preview art5"></div>
+          <div class="art-info">
+            <div>
+              <h3>Opera n. 05</h3>
+              <p>Acrilico su tela · 90 x 90 cm</p>
+            </div>
+            <span class="status">Disponibile</span>
+          </div>
         </article>
 
-        <article class="art-card" data-category="commission" data-title="Tracce di Luce" data-size="Su misura" data-technique="Opera personalizzata" data-status="Su commissione" data-style="art-6">
-          <div class="art-preview art-6"></div>
-          <div class="art-info"><div><h3>Tracce di Luce</h3><p>Opera personalizzata · Su misura</p></div><span class="status">Su commissione</span></div>
+        <article class="art-card" data-category="commission" data-title="Opera n. 06" data-size="Su misura" data-technique="Opera personalizzata" data-status="Su commissione">
+          <div class="preview art6"></div>
+          <div class="art-info">
+            <div>
+              <h3>Opera n. 06</h3>
+              <p>Opera personalizzata · Su misura</p>
+            </div>
+            <span class="status">Su commissione</span>
+          </div>
         </article>
       </div>
     </section>
@@ -1188,23 +1279,33 @@
             Ogni quadro racconta una storia personale, realizzata con cura,
             sensibilità e attenzione ai dettagli.
           </p>
+
           <p style="margin-top: 18px;">
             Questa mostra online è pensata come uno spazio elegante e moderno:
             un luogo dove scoprire le opere, richiedere informazioni e scegliere
             un quadro capace di rendere speciale una casa, un ufficio o un ambiente professionale.
           </p>
 
-          <div class="about-stats">
-            <div class="stat"><strong>01</strong><span>Opere originali</span></div>
-            <div class="stat"><strong>02</strong><span>Quadri su richiesta</span></div>
-            <div class="stat"><strong>03</strong><span>Vendita diretta</span></div>
+          <div class="stats">
+            <div class="stat">
+              <strong>01</strong>
+              <span>Opere originali</span>
+            </div>
+            <div class="stat">
+              <strong>02</strong>
+              <span>Quadri su richiesta</span>
+            </div>
+            <div class="stat">
+              <strong>03</strong>
+              <span>Vendita diretta</span>
+            </div>
           </div>
         </div>
       </section>
     </div>
 
     <section class="section" id="process">
-      <div class="section-heading reveal">
+      <div class="section-head reveal">
         <h2>Come funziona l'acquisto</h2>
         <p>
           La vendita resta personale e raffinata: il visitatore può vedere l'opera,
@@ -1213,9 +1314,23 @@
       </div>
 
       <div class="process">
-        <article class="process-card"><span>1</span><h3>Scegli l'opera</h3><p>Il visitatore esplora la galleria e seleziona il quadro più adatto al proprio ambiente.</p></article>
-        <article class="process-card"><span>2</span><h3>Richiedi dettagli</h3><p>Può richiedere foto aggiuntive, misure, tecnica, prezzo, disponibilità e spedizione.</p></article>
-        <article class="process-card"><span>3</span><h3>Acquisto diretto</h3><p>La vendita avviene con contatto diretto, mantenendo un rapporto umano e personalizzato.</p></article>
+        <article class="process-card">
+          <span>1</span>
+          <h3>Scegli l'opera</h3>
+          <p>Il visitatore esplora la galleria e seleziona il quadro più adatto al proprio ambiente.</p>
+        </article>
+
+        <article class="process-card">
+          <span>2</span>
+          <h3>Richiedi dettagli</h3>
+          <p>Può richiedere foto aggiuntive, misure, tecnica, prezzo, disponibilità e spedizione.</p>
+        </article>
+
+        <article class="process-card">
+          <span>3</span>
+          <h3>Acquisto diretto</h3>
+          <p>La vendita avviene con contatto diretto, mantenendo un rapporto umano e personalizzato.</p>
+        </article>
       </div>
     </section>
 
@@ -1228,124 +1343,117 @@
         </p>
 
         <div class="contact-actions">
-          <a class="btn btn-dark magnetic" href="mailto:info@sebithepainter.com">Contatta via email</a>
-          <a class="btn btn-light magnetic" href="https://wa.me/393249581949" target="_blank" rel="noopener">Scrivi su WhatsApp</a>
+          <a class="btn btn-dark" href="mailto:info@sebithepainter.com">Contatta via email</a>
+          <a class="btn btn-light" href="https://wa.me/393249581949" target="_blank" rel="noopener">Scrivi su WhatsApp</a>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="footer">
     <div>© 2026 Sebi The Painter. Online Art Gallery.</div>
     <div>Portfolio · Opere originali · Quadri su commissione</div>
   </footer>
 
-  <div class="modal" id="artModal" aria-hidden="true">
+  <div class="modal" id="modal">
     <button class="modal-close" id="modalClose" aria-label="Chiudi">×</button>
+
     <div class="modal-card">
       <div class="modal-art" id="modalArt"></div>
+
       <div class="modal-content">
         <span class="status" id="modalStatus">Disponibile</span>
         <h3 id="modalTitle">Titolo opera</h3>
+
         <p>
           Opera originale di Sebi The Painter. Questa scheda può essere personalizzata
           con descrizione, storia dell'opera, prezzo, dettagli di spedizione e disponibilità.
         </p>
+
         <div class="modal-meta">
           <div><strong>Dimensioni:</strong> <span id="modalSize"></span></div>
           <div><strong>Tecnica:</strong> <span id="modalTechnique"></span></div>
           <div><strong>Disponibilità:</strong> <span id="modalAvailability"></span></div>
         </div>
+
         <a class="btn btn-dark" href="#contact" id="modalContact">Richiedi informazioni</a>
       </div>
     </div>
   </div>
 
   <script>
-    const cursorDot = document.querySelector(".cursor-dot");
-    const cursorRing = document.querySelector(".cursor-ring");
-    const magneticItems = document.querySelectorAll(".magnetic, .art-card, .filter, .modal-close");
+    const menuBtn = document.querySelector("#menuBtn");
+    const mobileMenu = document.querySelector("#mobileMenu");
+    const mobileLinks = mobileMenu.querySelectorAll("a");
 
-    window.addEventListener("mousemove", (event) => {
-      cursorDot.style.left = event.clientX + "px";
-      cursorDot.style.top = event.clientY + "px";
-      cursorRing.style.left = event.clientX + "px";
-      cursorRing.style.top = event.clientY + "px";
+    menuBtn.addEventListener("click", () => {
+      menuBtn.classList.toggle("open");
+      mobileMenu.classList.toggle("open");
     });
 
-    magneticItems.forEach((item) => {
-      item.addEventListener("mouseenter", () => cursorRing.classList.add("is-hover"));
-      item.addEventListener("mouseleave", () => cursorRing.classList.remove("is-hover"));
-    });
-
-    const menuButton = document.querySelector(".menu-button");
-    const mobilePanel = document.querySelector("#mobilePanel");
-    const mobileLinks = mobilePanel.querySelectorAll("a");
-
-    menuButton.addEventListener("click", () => {
-      const isOpen = menuButton.classList.toggle("is-open");
-      mobilePanel.classList.toggle("is-open");
-      menuButton.setAttribute("aria-expanded", isOpen);
-    });
-
-    mobileLinks.forEach((link) => {
+    mobileLinks.forEach(link => {
       link.addEventListener("click", () => {
-        menuButton.classList.remove("is-open");
-        mobilePanel.classList.remove("is-open");
-        menuButton.setAttribute("aria-expanded", "false");
+        menuBtn.classList.remove("open");
+        mobileMenu.classList.remove("open");
       });
     });
 
     const revealItems = document.querySelectorAll(".reveal, .art-card, .process-card");
-    const observer = new IntersectionObserver((entries) => {
+
+    const observer = new IntersectionObserver(entries => {
       entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add("is-visible"), index * 70);
+          setTimeout(() => {
+            entry.target.classList.add("visible");
+          }, index * 70);
         }
       });
     }, { threshold: 0.16 });
 
-    revealItems.forEach((item) => observer.observe(item));
+    revealItems.forEach(item => observer.observe(item));
 
-    const heroStage = document.querySelector("#heroStage");
+    const heroArt = document.querySelector("#heroArt");
     const mainFrame = document.querySelector("#mainFrame");
     const floatingNote = document.querySelector("#floatingNote");
 
-    heroStage.addEventListener("mousemove", (event) => {
-      const rect = heroStage.getBoundingClientRect();
+    heroArt.addEventListener("mousemove", event => {
+      const rect = heroArt.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
+
       const moveX = (x - rect.width / 2) / 34;
       const moveY = (y - rect.height / 2) / 34;
-      mainFrame.style.transform = `translate(${moveX}px, ${moveY}px) rotate(2deg)`;
-      floatingNote.style.transform = `translate(${-moveX}px, ${-moveY}px)`;
+
+      mainFrame.style.transform = "translate(" + moveX + "px, " + moveY + "px) rotate(2deg)";
+      floatingNote.style.transform = "translate(" + (-moveX) + "px, " + (-moveY) + "px)";
     });
 
-    heroStage.addEventListener("mouseleave", () => {
+    heroArt.addEventListener("mouseleave", () => {
       mainFrame.style.transform = "";
       floatingNote.style.transform = "";
     });
 
-    const filterButtons = document.querySelectorAll(".filter");
+    const filters = document.querySelectorAll(".filter");
     const cards = document.querySelectorAll(".art-card");
 
-    filterButtons.forEach((button) => {
+    filters.forEach(button => {
       button.addEventListener("click", () => {
-        filterButtons.forEach((btn) => btn.classList.remove("is-active"));
-        button.classList.add("is-active");
+        filters.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+
         const filter = button.dataset.filter;
-        cards.forEach((card) => {
-          const category = card.dataset.category;
-          if (filter === "all" || category === filter) {
-            card.classList.remove("is-hidden");
+
+        cards.forEach(card => {
+          if (filter === "all" || card.dataset.category === filter) {
+            card.classList.remove("hidden");
           } else {
-            card.classList.add("is-hidden");
+            card.classList.add("hidden");
           }
         });
       });
     });
 
-    const modal = document.querySelector("#artModal");
+    const modal = document.querySelector("#modal");
     const modalClose = document.querySelector("#modalClose");
     const modalArt = document.querySelector("#modalArt");
     const modalTitle = document.querySelector("#modalTitle");
@@ -1356,32 +1464,47 @@
     const modalContact = document.querySelector("#modalContact");
 
     function openModal(card) {
-      const preview = card.querySelector(".art-preview");
-      const style = window.getComputedStyle(preview).background;
-      modalArt.style.background = style;
+      const preview = card.querySelector(".preview");
+      const background = window.getComputedStyle(preview).backgroundImage;
+
+      modalArt.style.backgroundImage = background;
       modalArt.style.backgroundSize = "cover";
       modalArt.style.backgroundPosition = "center";
+
       modalTitle.textContent = card.dataset.title;
       modalStatus.textContent = card.dataset.status;
       modalSize.textContent = card.dataset.size;
       modalTechnique.textContent = card.dataset.technique;
       modalAvailability.textContent = card.dataset.status;
-      modal.classList.add("is-open");
-      modal.setAttribute("aria-hidden", "false");
+
+      modal.classList.add("open");
       document.body.style.overflow = "hidden";
     }
 
     function closeModal() {
-      modal.classList.remove("is-open");
-      modal.setAttribute("aria-hidden", "true");
+      modal.classList.remove("open");
       document.body.style.overflow = "";
     }
 
-    cards.forEach((card) => card.addEventListener("click", () => openModal(card)));
+    cards.forEach(card => {
+      card.addEventListener("click", () => openModal(card));
+    });
+
     modalClose.addEventListener("click", closeModal);
-    modal.addEventListener("click", (event) => { if (event.target === modal) closeModal(); });
+
+    modal.addEventListener("click", event => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
     modalContact.addEventListener("click", closeModal);
-    window.addEventListener("keydown", (event) => { if (event.key === "Escape") closeModal(); });
+
+    window.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    });
   </script>
 </body>
 </html>
