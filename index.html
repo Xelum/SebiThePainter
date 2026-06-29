@@ -814,36 +814,59 @@
     }
 
 
+    .instagram-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 16px;
+      border-radius: 999px;
+      background: rgba(255, 250, 241, 0.55);
+      border: 1px solid rgba(23, 17, 12, 0.18);
+    }
+
+    .instagram-nav::after {
+      display: none;
+    }
+
+    .instagram-mini-icon {
+      width: 18px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brown);
+    }
+
     .instagram-follow {
       display: flex;
       justify-content: center;
-      margin-top: 28px;
+      margin-top: 30px;
     }
 
-    .instagram-link {
+    .instagram-card {
       display: inline-flex;
       align-items: center;
-      gap: 16px;
-      padding: 15px 22px;
+      gap: 18px;
+      padding: 18px 26px;
       border-radius: 999px;
-      background: rgba(255, 250, 241, 0.62);
+      background: rgba(255, 250, 241, 0.72);
       border: 1px solid rgba(23, 17, 12, 0.16);
-      box-shadow: 0 18px 50px rgba(23, 17, 12, 0.10);
+      box-shadow: 0 20px 60px rgba(23, 17, 12, 0.12);
       color: var(--ink);
       text-decoration: none;
       font-family: Arial, sans-serif;
       transition: 0.3s ease;
     }
 
-    .instagram-link:hover {
+    .instagram-card:hover {
       transform: translateY(-3px);
       background: var(--paper);
-      box-shadow: 0 24px 65px rgba(23, 17, 12, 0.16);
+      box-shadow: 0 26px 75px rgba(23, 17, 12, 0.17);
     }
 
-    .instagram-icon {
-      width: 42px;
-      height: 42px;
+    .instagram-big-icon {
+      width: 48px;
+      height: 48px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -853,26 +876,27 @@
       flex: 0 0 auto;
     }
 
-    .instagram-icon svg {
-      width: 22px;
-      height: 22px;
+    .instagram-big-icon svg {
+      width: 25px;
+      height: 25px;
     }
 
-    .instagram-text {
+    .instagram-copy {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       line-height: 1.2;
+      text-align: left;
     }
 
-    .instagram-text strong {
+    .instagram-copy strong {
       font-size: 13px;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
     }
 
-    .instagram-text small {
-      margin-top: 4px;
+    .instagram-copy small {
+      margin-top: 5px;
       font-size: 13px;
       color: var(--muted);
     }
@@ -1116,13 +1140,9 @@
         width: 100%;
       }
 
-      .instagram-link {
+      .instagram-card {
         width: 100%;
         justify-content: center;
-      }
-
-      .instagram-text {
-        align-items: flex-start;
       }
 
       .footer {
@@ -1190,6 +1210,16 @@
       <a href="#gallery">Galleria</a>
       <a href="#about">L'artista</a>
       <a href="#process">Commissioni</a>
+      <a class="instagram-nav" href="https://www.instagram.com/sebi_the_painter?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">
+        <span class="instagram-mini-icon">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"></rect>
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"></circle>
+            <circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"></circle>
+          </svg>
+        </span>
+        Instagram
+      </a>
       <a class="btn btn-dark" href="#contact">Contatti</a>
     </nav>
 
@@ -1202,6 +1232,7 @@
     <a href="#gallery">Galleria</a>
     <a href="#about">L'artista</a>
     <a href="#process">Commissioni</a>
+    <a href="https://www.instagram.com/sebi_the_painter?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">Instagram</a>
     <a href="#contact">Contatti</a>
   </div>
 
@@ -1431,6 +1462,23 @@
         <div class="contact-actions">
           <a class="btn btn-dark" href="mailto:alex.morneala@libero.it">Contatta via email</a>
           <a class="btn btn-light" href="https://wa.me/393898267838" target="_blank" rel="noopener">Scrivi su WhatsApp</a>
+        </div>
+
+        <div class="instagram-follow reveal">
+          <a class="instagram-card" href="https://www.instagram.com/sebi_the_painter?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener" aria-label="Seguimi anche su Instagram">
+            <span class="instagram-big-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="2"></rect>
+            <circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"></circle>
+            <circle cx="17.3" cy="6.7" r="1.2" fill="currentColor"></circle>
+          </svg>
+            </span>
+
+            <span class="instagram-copy">
+              <strong>Seguimi anche su Instagram</strong>
+              <small>@sebi_the_painter</small>
+            </span>
+          </a>
         </div>
       </div>
     </section>
