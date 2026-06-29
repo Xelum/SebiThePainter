@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Galleria completa | Sebi The Painter</title>
+  <meta name="description" content="Galleria completa delle opere di Sebi The Painter." />
+
+  <style>
+    :root {
+      --bg: #f4eee3;
+      --paper: #fffaf1;
+      --ink: #17110c;
+      --muted: #756b63;
+      --gold: #c99843;
+      --brown: #8f4d36;
+      --line: rgba(23, 17, 12, 0.14);
+      --shadow: 0 24px 70px rgba(23, 17, 12, 0.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Georgia, "Times New Roman", serif;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(201, 152, 67, 0.26), transparent 28%),
+        radial-gradient(circle at 90% 14%, rgba(143, 77, 54, 0.15), transparent 32%),
+        var(--bg);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.06;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 6vw;
+      background: rgba(244, 238, 227, 0.72);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      color: var(--ink);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      line-height: 1;
+    }
+
+    .brand strong {
+      font-size: 22px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .brand span {
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .nav {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      transition: 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .btn-dark {
+      background: var(--ink);
+      color: var(--paper);
+      box-shadow: 0 16px 44px rgba(23, 17, 12, 0.18);
+    }
+
+    .btn-dark:hover {
+      transform: translateY(-3px);
+      background: var(--brown);
+    }
+
+    .btn-light {
+      border-color: rgba(23, 17, 12, 0.26);
+      background: rgba(255, 250, 241, 0.48);
+      color: var(--ink);
+    }
+
+    .btn-light:hover {
+      transform: translateY(-3px);
+      background: var(--paper);
+    }
+
+    .hero {
+      padding: 150px 6vw 70px;
+      min-height: 58vh;
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 46px;
+      align-items: end;
+    }
+
+    .kicker {
+      display: inline-flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 24px;
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--brown);
+    }
+
+    .kicker::before {
+      content: "";
+      width: 46px;
+      height: 1px;
+      background: var(--brown);
+    }
+
+    h1 {
+      font-size: clamp(54px, 8vw, 120px);
+      line-height: 0.88;
+      letter-spacing: -0.065em;
+      font-weight: 400;
+    }
+
+    h1 em {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero p {
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.85;
+    }
+
+    .toolbar {
+      padding: 0 6vw 34px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+      font-family: Arial, sans-serif;
+    }
+
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter {
+      border: 1px solid rgba(23, 17, 12, 0.2);
+      background: rgba(255, 250, 241, 0.48);
+      color: var(--ink);
+      padding: 11px 16px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 11px;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .filter:hover,
+    .filter.active {
+      color: var(--paper);
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .search {
+      min-width: 280px;
+      padding: 14px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(23, 17, 12, 0.22);
+      background: rgba(255, 250, 241, 0.62);
+      font-family: Arial, sans-serif;
+      outline: none;
+    }
+
+    .gallery {
+      padding: 0 6vw 110px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .art-card {
+      min-height: 430px;
+      border-radius: 30px;
+      overflow: hidden;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .art-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .art-card.hidden {
+      display: none;
+    }
+
+    .preview {
+      height: 74%;
+      min-height: 315px;
+      background-size: cover;
+      background-position: center;
+      transition: 0.6s ease;
+      position: relative;
+    }
+
+    .preview::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(23, 17, 12, 0.24), transparent 50%);
+      opacity: 0;
+      transition: 0.35s ease;
+    }
+
+    .art-card:hover .preview {
+      transform: scale(1.055);
+    }
+
+    .art-card:hover .preview::after {
+      opacity: 1;
+    }
+
+    .art-info {
+      height: 26%;
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 14px;
+    }
+
+    .art-info h3 {
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.1;
+    }
+
+    .art-info p {
+      margin-top: 6px;
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .status {
+      flex: 0 0 auto;
+      display: inline-flex;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(201, 152, 67, 0.16);
+      color: var(--brown);
+      font-family: Arial, sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .empty {
+      display: none;
+      padding: 0 6vw 110px;
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .empty.show {
+      display: block;
+    }
+
+    .footer {
+      padding: 34px 6vw;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      border-top: 1px solid var(--line);
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(12, 9, 7, 0.68);
+      backdrop-filter: blur(12px);
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(980px, 100%);
+      max-height: 88vh;
+      overflow: auto;
+      background: var(--paper);
+      border-radius: 34px;
+      box-shadow: 0 30px 110px rgba(0,0,0,0.35);
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+
+    .modal-art {
+      min-height: 560px;
+      border-radius: 34px 0 0 34px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .modal-content {
+      padding: 42px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .modal-content h3 {
+      font-size: 46px;
+      line-height: 1;
+      font-weight: 400;
+      letter-spacing: -0.04em;
+    }
+
+    .modal-content p {
+      font-family: Arial, sans-serif;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .modal-meta {
+      display: grid;
+      gap: 10px;
+      margin: 8px 0 10px;
+      font-family: Arial, sans-serif;
+    }
+
+    .modal-meta div {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 22px;
+      right: 22px;
+      width: 46px;
+      height: 46px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--paper);
+      cursor: pointer;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    @media (max-width: 1180px) {
+      .gallery {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .modal-card {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-art {
+        border-radius: 34px 34px 0 0;
+        min-height: 360px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header {
+        padding: 18px 5vw;
+      }
+
+      .brand strong {
+        font-size: 17px;
+      }
+
+      .brand span {
+        font-size: 9px;
+      }
+
+      .nav .btn-light {
+        display: none;
+      }
+
+      .hero {
+        padding: 126px 5vw 55px;
+      }
+
+      .toolbar {
+        padding: 0 5vw 30px;
+      }
+
+      .search {
+        min-width: 100%;
+      }
+
+      .gallery {
+        padding: 0 5vw 85px;
+        grid-template-columns: 1fr;
+      }
+
+      .footer {
+        flex-direction: column;
+        padding: 30px 5vw;
+      }
+
+      .modal-content {
+        padding: 30px;
+      }
+
+      .modal-content h3 {
+        font-size: 38px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <a class="brand" href="index.html">
+      <strong>Sebi The Painter</strong>
+      <span>Complete Gallery</span>
+    </a>
+
+    <nav class="nav">
+      <a class="btn btn-light" href="index.html">Torna alla home</a>
+      <a class="btn btn-dark" href="index.html#contact">Contatti</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="kicker">Galleria completa</div>
+        <h1>Tutte le <br><em>opere</em></h1>
+      </div>
+
+      <p>
+        Qui puoi inserire tutta la lista dei quadri di Sebi The Painter.
+        Le immagini vengono richiamate dalla cartella <strong>images/</strong>,
+        per esempio <strong>images/quadro7.png</strong>, <strong>images/quadro8.png</strong> e così via.
+      </p>
+    </section>
+
+    <div class="toolbar">
+      <div class="filters">
+        <button class="filter active" data-filter="all">Tutte</button>
+        <button class="filter" data-filter="available">Disponibili</button>
+        <button class="filter" data-filter="commission">Su richiesta</button>
+        <button class="filter" data-filter="sold">Vendute</button>
+      </div>
+
+      <input class="search" id="searchInput" type="search" placeholder="Cerca opera, tecnica, dimensione..." />
+    </div>
+
+    <section class="gallery" id="gallery"></section>
+    <div class="empty" id="empty">Nessuna opera trovata con questi filtri.</div>
+  </main>
+
+  <footer class="footer">
+    <div>© 2026 Sebi The Painter. Complete Gallery.</div>
+    <div>Portfolio · Opere originali · Quadri su commissione</div>
+  </footer>
+
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modalClose" aria-label="Chiudi">×</button>
+
+    <div class="modal-card">
+      <div class="modal-art" id="modalArt"></div>
+
+      <div class="modal-content">
+        <span class="status" id="modalStatus">Disponibile</span>
+        <h3 id="modalTitle">Titolo opera</h3>
+
+        <p id="modalDescription">
+          Opera originale di Sebi The Painter.
+        </p>
+
+        <div class="modal-meta">
+          <div><strong>Dimensioni:</strong> <span id="modalSize"></span></div>
+          <div><strong>Tecnica:</strong> <span id="modalTechnique"></span></div>
+          <div><strong>Disponibilità:</strong> <span id="modalAvailability"></span></div>
+          <div><strong>Prezzo:</strong> <span id="modalPrice"></span></div>
+        </div>
+
+        <a class="btn btn-dark" href="index.html#contact">Richiedi informazioni</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const opere = [
+      {
+        titolo: "Opera n. 01",
+        immagine: "images/quadro1.png",
+        categoria: "available",
+        stato: "Disponibile",
+        dimensioni: "70 x 100 cm",
+        tecnica: "Acrilico su tela",
+        prezzo: "Prezzo su richiesta",
+        descrizione: "Opera originale dipinta a mano."
+      },
+      {
+        titolo: "Opera n. 02",
+        immagine: "images/quadro2.png",
+        categoria: "available",
+        stato: "Disponibile",
+        dimensioni: "60 x 80 cm",
+        tecnica: "Tecnica mista",
+        prezzo: "Prezzo su richiesta",
+        descrizione: "Opera originale dipinta a mano."
+      },
+      {
+        titolo: "Opera n. 03",
+        immagine: "images/quadro3.png",
+        categoria: "commission",
+        stato: "Su richiesta",
+        dimensioni: "80 x 120 cm",
+        tecnica: "Olio su tela",
+        prezzo: "Prezzo su richiesta",
+        descrizione: "Opera realizzabile o disponibile su richiesta."
+      },
+      {
+        titolo: "Opera n. 04",
+        immagine: "images/quadro4.png",
+        categoria: "sold",
+        stato: "Venduta",
+        dimensioni: "50 x 70 cm",
+        tecnica: "Acrilico materico",
+        prezzo: "Venduta",
+        descrizione: "Opera già venduta, utile come esempio di stile."
+      },
+      {
+        titolo: "Opera n. 05",
+        immagine: "images/quadro5.png",
+        categoria: "available",
+        stato: "Disponibile",
+        dimensioni: "90 x 90 cm",
+        tecnica: "Acrilico su tela",
+        prezzo: "Prezzo su richiesta",
+        descrizione: "Opera originale dipinta a mano."
+      },
+      {
+        titolo: "Opera n. 06",
+        immagine: "images/quadro6.png",
+        categoria: "commission",
+        stato: "Su commissione",
+        dimensioni: "Su misura",
+        tecnica: "Opera personalizzata",
+        prezzo: "Da concordare",
+        descrizione: "Opera personalizzata realizzabile su richiesta."
+      },
+      {
+        titolo: "Opera n. 07",
+        immagine: "images/quadro7.png",
+        categoria: "available",
+        stato: "Disponibile",
+        dimensioni: "Da inserire",
+        tecnica: "Da inserire",
+        prezzo: "Prezzo su richiesta",
+        descrizione: "Aggiungi qui la descrizione dell'opera."
+      },
+      {
+        titolo: "Opera n. 08",
+        immagine: "images/quadro8.png",
+        categoria: "available",
+        stato: "Disponibile",
+        dimensioni: "Da inserire",
+        tecnica: "Da inserire",
+        prezzo: "Prezzo su richiesta",
+        descrizione: "Aggiungi qui la descrizione dell'opera."
+      },
+      {
+        titolo: "Opera n. 09",
+        immagine: "images/quadro9.png",
+        categoria: "available",
+        stato: "Disponibile",
+        dimensioni: "Da inserire",
+        tecnica: "Da inserire",
+        prezzo: "Prezzo su richiesta",
+        descrizione: "Aggiungi qui la descrizione dell'opera."
+      },
+      {
+        titolo: "Opera n. 10",
+        immagine: "images/quadro10.png",
+        categoria: "available",
+        stato: "Disponibile",
+        dimensioni: "Da inserire",
+        tecnica: "Da inserire",
+        prezzo: "Prezzo su richiesta",
+        descrizione: "Aggiungi qui la descrizione dell'opera."
+      },
+      {
+        titolo: "Opera n. 11",
+        immagine: "images/quadro11.png",
+        categoria: "commission",
+        stato: "Su richiesta",
+        dimensioni: "Da inserire",
+        tecnica: "Da inserire",
+        prezzo: "Prezzo su richiesta",
+        descrizione: "Aggiungi qui la descrizione dell'opera."
+      },
+      {
+        titolo: "Opera n. 12",
+        immagine: "images/quadro12.png",
+        categoria: "sold",
+        stato: "Venduta",
+        dimensioni: "Da inserire",
+        tecnica: "Da inserire",
+        prezzo: "Venduta",
+        descrizione: "Aggiungi qui la descrizione dell'opera."
+      }
+    ];
+
+    const gallery = document.querySelector("#gallery");
+    const empty = document.querySelector("#empty");
+    const searchInput = document.querySelector("#searchInput");
+    const filterButtons = document.querySelectorAll(".filter");
+
+    let currentFilter = "all";
+
+    function renderGallery() {
+      const search = searchInput.value.trim().toLowerCase();
+
+      const filtered = opere.filter(opera => {
+        const matchFilter = currentFilter === "all" || opera.categoria === currentFilter;
+        const text = [
+          opera.titolo,
+          opera.stato,
+          opera.dimensioni,
+          opera.tecnica,
+          opera.prezzo,
+          opera.descrizione
+        ].join(" ").toLowerCase();
+
+        const matchSearch = text.includes(search);
+        return matchFilter && matchSearch;
+      });
+
+      gallery.innerHTML = "";
+
+      filtered.forEach((opera, index) => {
+        const card = document.createElement("article");
+        card.className = "art-card visible";
+        card.style.transitionDelay = (index * 40) + "ms";
+
+        card.innerHTML = `
+          <div class="preview" style="background-image: url('${opera.immagine}')"></div>
+          <div class="art-info">
+            <div>
+              <h3>${opera.titolo}</h3>
+              <p>${opera.tecnica} · ${opera.dimensioni}</p>
+            </div>
+            <span class="status">${opera.stato}</span>
+          </div>
+        `;
+
+        card.addEventListener("click", () => openModal(opera));
+        gallery.appendChild(card);
+      });
+
+      empty.classList.toggle("show", filtered.length === 0);
+    }
+
+    filterButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        filterButtons.forEach(btn => btn.classList.remove("active"));
+        button.classList.add("active");
+        currentFilter = button.dataset.filter;
+        renderGallery();
+      });
+    });
+
+    searchInput.addEventListener("input", renderGallery);
+
+    const modal = document.querySelector("#modal");
+    const modalClose = document.querySelector("#modalClose");
+    const modalArt = document.querySelector("#modalArt");
+    const modalStatus = document.querySelector("#modalStatus");
+    const modalTitle = document.querySelector("#modalTitle");
+    const modalDescription = document.querySelector("#modalDescription");
+    const modalSize = document.querySelector("#modalSize");
+    const modalTechnique = document.querySelector("#modalTechnique");
+    const modalAvailability = document.querySelector("#modalAvailability");
+    const modalPrice = document.querySelector("#modalPrice");
+
+    function openModal(opera) {
+      modalArt.style.backgroundImage = `url('${opera.immagine}')`;
+      modalTitle.textContent = opera.titolo;
+      modalStatus.textContent = opera.stato;
+      modalDescription.textContent = opera.descrizione;
+      modalSize.textContent = opera.dimensioni;
+      modalTechnique.textContent = opera.tecnica;
+      modalAvailability.textContent = opera.stato;
+      modalPrice.textContent = opera.prezzo;
+
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal() {
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    modalClose.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", event => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    window.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    });
+
+    renderGallery();
+  </script>
+</body>
+</html>
